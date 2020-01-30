@@ -21,7 +21,7 @@ export const CUSTOM_URL_REGEX = /^\s*https?:\/\/(?:.+\.)?(?:eventbrite\.[a-z.]+)
 
 export const name = 'eventbrite';
 
-export const title = __( 'Eventbrite Checkout', 'jetpack' );
+export const title = __('Eventbrite Checkout', 'jetpack');
 
 export const icon = {
 	src: (
@@ -37,10 +37,10 @@ export const icon = {
 
 export const settings = {
 	title,
-	description: __( 'Embed Eventbrite event details and ticket checkout.', 'jetpack' ),
+	description: __('Embed Eventbrite event details and ticket checkout.', 'jetpack'),
 	icon,
 	category: 'jetpack',
-	keywords: [ __( 'events', 'jetpack' ), __( 'tickets', 'jetpack' ) ],
+	keywords: [__('events', 'jetpack'), __('tickets', 'jetpack')],
 	supports: {
 		html: false,
 	},
@@ -51,8 +51,8 @@ export const settings = {
 		eventId: {
 			type: 'number',
 		},
-		useModal: {
-			type: 'boolean',
+		style: {
+			type: 'string',
 		},
 		// Modal button attributes, used for Button & Modal embed type.
 		text: {
@@ -82,11 +82,12 @@ export const settings = {
 				type: 'raw',
 				isMatch: node =>
 					node.nodeName === 'P' &&
-					( URL_REGEX.test( node.textContent ) || CUSTOM_URL_REGEX.test( node.textContent ) ),
-				transform: node =>
-					createBlock( 'jetpack/eventbrite', {
+					(URL_REGEX.test(node.textContent) || CUSTOM_URL_REGEX.test(node.textContent)),
+				transform: node => {
+					return createBlock('jetpack/eventbrite', {
 						url: node.textContent.trim(),
-					} ),
+					});
+				},
 			},
 		],
 	},
@@ -95,8 +96,7 @@ export const settings = {
 	example: {
 		attributes: {
 			url: 'https://www.eventbrite.com/e/test-event-tickets-123456789',
-			eventId: 123456789,
-			useModal: true,
+			style: 'modal',
 			text: _x( 'Register', 'verb: e.g. register for an event.', 'jetpack' ),
 		},
 	},
