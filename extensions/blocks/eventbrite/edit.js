@@ -13,11 +13,10 @@ import {
 	Spinner,
 	ExternalLink,
 } from '@wordpress/components';
-import { BlockControls, BlockIcon, BlockPreview } from '@wordpress/block-editor';
+import { BlockControls, BlockIcon } from '@wordpress/block-editor';
 import { withDispatch } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/editor';
 import apiFetch from '@wordpress/api-fetch';
-import { createBlock, getBlockFromExample } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -148,7 +147,7 @@ class EventbriteEdit extends Component {
 
 	renderInspectorControls() {
 		const { url, style } = this.props.attributes;
-		const { name, attributes, clientId, setAttributes } = this.props;
+		const { attributes, clientId, setAttributes } = this.props;
 
 		if ( ! url ) {
 			return;
@@ -159,43 +158,11 @@ class EventbriteEdit extends Component {
 				value: 'inline',
 				isActive: style !== 'modal',
 				label: __( 'In-page Embed', 'jetpack' ),
-				preview: (
-					<BlockPreview
-						viewportWidth={ 500 }
-						blocks={ getBlockFromExample( name, {
-							attributes: {
-								url:
-									'https://www.eventbrite.co.uk/e/london-fashion-week-tickets-81761068557?aff=ebdshpfbestofcityevents',
-								eventId: 81761068557,
-								style: 'inline',
-								text: _x( 'Register', 'verb: e.g. register for an event.', 'jetpack' ),
-							},
-							innerBlocks: [],
-						} ) }
-					/>
-				),
 			},
 			{
 				value: 'modal',
 				isActive: style === 'modal',
 				label: __( ' Button & Modal', 'jetpack' ),
-				// @todo Replace with `getBlockFromExample` when WP 5.3 becomes the Jetpack minimum version
-				preview: (
-					<BlockPreview
-						viewportWidth={ 500 }
-						blocks={ createBlock(
-							name,
-							{
-								url:
-									'https://www.eventbrite.co.uk/e/london-fashion-week-tickets-81761068557?aff=ebdshpfbestofcityevents',
-								eventId: 81761068557,
-								style: 'modal',
-								text: _x( 'Register', 'verb: e.g. register for an event.', 'jetpack' ),
-							},
-							[]
-						) }
-					/>
-				),
 			},
 		];
 
