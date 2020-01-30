@@ -84,7 +84,7 @@ export const settings = {
 					node.nodeName === 'P' &&
 					( URL_REGEX.test( node.textContent ) || CUSTOM_URL_REGEX.test( node.textContent ) ),
 				transform: node => {
-					return createBlock( 'jetpack/eventbrite', {
+					createBlock( 'jetpack/eventbrite', {
 						url: node.textContent.trim(),
 					} );
 				},
