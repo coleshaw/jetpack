@@ -21,7 +21,7 @@ export const CUSTOM_URL_REGEX = /^\s*https?:\/\/(?:.+\.)?(?:eventbrite\.[a-z.]+)
 
 export const name = 'eventbrite';
 
-export const title = __('Eventbrite Checkout', 'jetpack');
+export const title = __( 'Eventbrite Checkout', 'jetpack' );
 
 export const icon = {
 	src: (
@@ -37,10 +37,10 @@ export const icon = {
 
 export const settings = {
 	title,
-	description: __('Embed Eventbrite event details and ticket checkout.', 'jetpack'),
+	description: __( 'Embed Eventbrite event details and ticket checkout.', 'jetpack' ),
 	icon,
 	category: 'jetpack',
-	keywords: [__('events', 'jetpack'), __('tickets', 'jetpack')],
+	keywords: [ __( 'events', 'jetpack' ), __( 'tickets', 'jetpack' ) ],
 	supports: {
 		html: false,
 	},
@@ -82,11 +82,11 @@ export const settings = {
 				type: 'raw',
 				isMatch: node =>
 					node.nodeName === 'P' &&
-					(URL_REGEX.test(node.textContent) || CUSTOM_URL_REGEX.test(node.textContent)),
+					( URL_REGEX.test( node.textContent ) || CUSTOM_URL_REGEX.test( node.textContent ) ),
 				transform: node => {
-					return createBlock('jetpack/eventbrite', {
+					return createBlock( 'jetpack/eventbrite', {
 						url: node.textContent.trim(),
-					});
+					} );
 				},
 			},
 		],
@@ -95,7 +95,9 @@ export const settings = {
 	// Make sure the example has `useModal` set to true.
 	example: {
 		attributes: {
-			url: 'https://www.eventbrite.com/e/test-event-tickets-123456789',
+			url:
+				'https://www.eventbrite.co.uk/e/london-fashion-week-tickets-81761068557?aff=ebdshpfbestofcityevents',
+			eventId: 81761068557,
 			style: 'modal',
 			text: _x( 'Register', 'verb: e.g. register for an event.', 'jetpack' ),
 		},
