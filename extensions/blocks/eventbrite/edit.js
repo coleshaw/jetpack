@@ -28,8 +28,6 @@ import { createWidgetId, convertToLink, eventIdFromUrl } from './utils';
 import { icon, URL_REGEX } from '.';
 import { isAtomicSite, isSimpleSite } from '../../shared/site-type-utils';
 import ModalButtonPreview from './modal-button-preview';
-import EventbriteInPageExample from './eventbrite-in-page-example.png';
-import EventbriteModalExample from './eventbrite-modal-example.png';
 import BlockStylesSelector from '../../shared/components/block-styles-selector';
 import './editor.scss';
 
