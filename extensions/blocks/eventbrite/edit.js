@@ -25,6 +25,7 @@ import { createWidgetId, convertToLink, eventIdFromUrl } from './utils';
 import { icon, URL_REGEX } from '.';
 import { isAtomicSite, isSimpleSite } from '../../shared/site-type-utils';
 import ModalButtonPreview from './modal-button-preview';
+import EventbriteInPageExample from './eventbrite-in-page-example.png';
 import BlockStylesSelector from '../../shared/components/block-styles-selector';
 import './editor.scss';
 
@@ -158,11 +159,19 @@ class EventbriteEdit extends Component {
 				value: 'inline',
 				isActive: style !== 'modal',
 				label: __( 'In-page Embed', 'jetpack' ),
+				preview: (
+					<div className="block-editor-block-preview__container">
+						<img
+							src={ EventbriteInPageExample }
+							alt={ __( 'In page Eventbrite checkout example', 'jetpack' ) }
+						/>
+					</div>
+				),
 			},
 			{
 				value: 'modal',
 				isActive: style === 'modal',
-				label: __( ' Button & Modal', 'jetpack' ),
+				label: __( 'Button & Modal', 'jetpack' ),
 			},
 		];
 
@@ -182,7 +191,7 @@ class EventbriteEdit extends Component {
 						onSelectStyle={ setAttributes }
 						activeStyle={ style }
 						attributes={ attributes }
-						viewportWidth={ 800 }
+						viewportWidth={ 150 }
 					/>
 				</PanelBody>
 			</InspectorControls>

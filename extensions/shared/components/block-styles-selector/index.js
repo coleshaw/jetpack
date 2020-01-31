@@ -13,23 +13,26 @@ import { BlockPreview } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { ENTER, SPACE } from '@wordpress/keycodes';
 
+/**
+ * Internal dependencies
+ */
+import './style.scss';
+
 const StylePreview = ( { attributes, styleOption, viewportWidth, blockName } ) => {
 	const type = getBlockType( blockName );
 
 	return (
-		<div className="block-editor-block-styles__item-preview">
-			<BlockPreview
-				viewportWidth={ viewportWidth }
-				blocks={
-					type.example
-						? getBlockFromExample( blockName, {
-								attributes: { ...type.example.attributes, style: styleOption.value },
-								innerBlocks: type.example.innerBlocks,
-						  } )
-						: createBlock( type, attributes )
-				}
-			/>
-		</div>
+		<BlockPreview
+			viewportWidth={ viewportWidth }
+			blocks={
+				type.example
+					? getBlockFromExample( blockName, {
+							attributes: { ...type.example.attributes, style: styleOption.value },
+							innerBlocks: type.example.innerBlocks,
+					  } )
+					: createBlock( type, attributes )
+			}
+		/>
 	);
 };
 
@@ -54,12 +57,13 @@ export default function BlockStylesSelector( {
 	}
 
 	return (
-		<div className="block-editor-block-styles">
+		<div className="block-editor-block-styles jetpack-block-styles-selector">
 			{ styleOptions.map( styleOption => {
 				const optionAttributes = {
 					...attributes,
 					style: styleOption.value,
 				};
+
 				return (
 					<div
 						key={ styleOption.value }
@@ -79,14 +83,19 @@ export default function BlockStylesSelector( {
 						tabIndex="0"
 						aria-label={ styleOption.label }
 					>
-						{ useSelect && block && (
-							<StylePreviewComponent
-								blockName={ block.name }
-								styleOption={ styleOption }
-								attributes={ optionAttributes }
-								viewportWidth={ viewportWidth }
-							/>
-						) }
+						<div className="block-editor-block-styles__item-preview">
+							{ styleOption.preview
+								? styleOption.preview
+								: useSelect &&
+								  block && (
+										<StylePreviewComponent
+											blockName={ block.name }
+											styleOption={ styleOption }
+											attributes={ optionAttributes }
+											viewportWidth={ viewportWidth }
+										/>
+								  ) }
+						</div>
 						<div className="block-editor-block-styles__item-label">{ styleOption.label }</div>
 					</div>
 				);
