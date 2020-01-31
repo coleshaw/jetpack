@@ -8,7 +8,7 @@ import queryString from 'query-string';
 /**
  * WordPress dependencies
  */
-import { BlockControls, BlockIcon, InspectorControls } from '@wordpress/block-editor';
+import { BlockIcon, InspectorControls } from '@wordpress/block-editor';
 import {
 	Button,
 	ExternalLink,
@@ -16,7 +16,6 @@ import {
 	PanelBody,
 	Placeholder,
 	ToggleControl,
-	Toolbar,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
@@ -183,24 +182,6 @@ export default function CalendlyEdit( { attributes, className, clientId, setAttr
 		{ value: 'link', label: __( 'Link', 'jetpack' ) },
 	];
 
-	const blockControls = (
-		<BlockControls>
-			{ url && (
-				<Toolbar
-					isCollapsed={ true }
-					icon="admin-appearance"
-					label={ __( 'Style', 'jetpack' ) }
-					controls={ styleOptions.map( styleOption => ( {
-						title: styleOption.label,
-						isActive: styleOption.value === style,
-						onClick: () => setAttributes( { style: styleOption.value } ),
-					} ) ) }
-					popoverProps={ { className: 'is-calendly' } }
-				/>
-			) }
-		</BlockControls>
-	);
-
 	const inspectorControls = (
 		<InspectorControls>
 			{ url && (
@@ -253,7 +234,6 @@ export default function CalendlyEdit( { attributes, className, clientId, setAttr
 	return (
 		<div className={ className }>
 			{ inspectorControls }
-			{ blockControls }
 			{ url ? blockPreview( style ) : blockPlaceholder }
 		</div>
 	);

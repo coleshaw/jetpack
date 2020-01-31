@@ -8,12 +8,7 @@ import { isEmpty, isEqual, join } from 'lodash';
 /**
  * WordPress dependencies
  */
-import {
-	BlockControls,
-	BlockIcon,
-	InspectorControls,
-	InspectorAdvancedControls,
-} from '@wordpress/block-editor';
+import { BlockIcon, InspectorControls, InspectorAdvancedControls } from '@wordpress/block-editor';
 import {
 	ExternalLink,
 	Notice,
@@ -21,7 +16,6 @@ import {
 	Placeholder,
 	SelectControl,
 	ToggleControl,
-	Toolbar,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
@@ -109,15 +103,17 @@ export default function OpenTableEdit( { attributes, setAttributes, className, c
 	const styleValues = getStyleValues( rid );
 
 	const updateStyle = newStyle => {
-		setAttributes( { style: newStyle } );
+		setAttributes( newStyle );
+		// If the old style was wide
+		// then reset the alignment
 		if ( style === 'wide' && align === 'wide' ) {
-			// If the old style was wide
-			setAttributes( { align: '' } ); // then reset the alignment
+			setAttributes( { align: '' } );
 		}
 
-		if ( newStyle === 'wide' ) {
-			// If the new style is wide
-			setAttributes( { align: 'wide' } ); // then set the alignment to wide as it works much better like that
+		// If the new style is wide
+		// then set the alignment to wide as it works much better like that
+		if ( newStyle.style === 'wide' ) {
+			setAttributes( { align: 'wide' } );
 		}
 	};
 
@@ -148,24 +144,6 @@ export default function OpenTableEdit( { attributes, setAttributes, className, c
 		);
 	};
 
-	const blockControls = (
-		<BlockControls>
-			{ ! isEmpty( rid ) && (
-				<Toolbar
-					popoverProps={ { className: 'is-opentable' } }
-					isCollapsed={ true }
-					icon="admin-appearance"
-					label={ __( 'Style', 'jetpack' ) }
-					controls={ styleOptions.map( styleOption => ( {
-						title: styleOption.label,
-						isActive: styleOption.value === style,
-						onClick: () => updateStyle( styleOption.value ),
-					} ) ) }
-				/>
-			) }
-		</BlockControls>
-	);
-
 	const onPickerSubmit = input => {
 		if ( Array.isArray( input ) ) {
 			setAttributes( {
@@ -192,7 +170,7 @@ export default function OpenTableEdit( { attributes, setAttributes, className, c
 					<BlockStylesSelector
 						clientId={ clientId }
 						styleOptions={ styleOptions }
-						onSelectStyle={ setAttributes }
+						onSelectStyle={ updateStyle }
 						activeStyle={ style }
 						attributes={ attributes }
 						viewportWidth={ 150 }
@@ -251,12 +229,7 @@ export default function OpenTableEdit( { attributes, setAttributes, className, c
 
 	return (
 		<div className={ editClasses }>
-			{ ! isEmpty( rid ) && (
-				<>
-					{ inspectorControls() }
-					{ blockControls }
-				</>
-			) }
+			{ ! isEmpty( rid ) && <>{ inspectorControls() }</> }
 			{ ! isEmpty( rid ) ? blockPreview() : blockPlaceholder }
 		</div>
 	);
