@@ -83,11 +83,10 @@ export const settings = {
 				isMatch: node =>
 					node.nodeName === 'P' &&
 					( URL_REGEX.test( node.textContent ) || CUSTOM_URL_REGEX.test( node.textContent ) ),
-				transform: node => {
+				transform: node =>
 					createBlock( 'jetpack/eventbrite', {
 						url: node.textContent.trim(),
-					} );
-				},
+					} ),
 			},
 		],
 	},
@@ -95,9 +94,8 @@ export const settings = {
 	// Make sure the example has `useModal` set to true.
 	example: {
 		attributes: {
-			url:
-				'https://www.eventbrite.co.uk/e/london-fashion-week-tickets-81761068557?aff=ebdshpfbestofcityevents',
-			eventId: 81761068557,
+			url: 'https://www.eventbrite.com/e/test-event-tickets-123456789',
+			eventId: 123456789,
 			style: 'modal',
 			text: _x( 'Register', 'verb: e.g. register for an event.', 'jetpack' ),
 		},
