@@ -157,7 +157,6 @@ class EventbriteEdit extends Component {
 		const embedTypes = [
 			{
 				value: 'inline',
-				isActive: style !== 'modal',
 				label: __( 'In-page Embed', 'jetpack' ),
 				preview: (
 					<div className="block-editor-block-preview__container">
@@ -170,7 +169,6 @@ class EventbriteEdit extends Component {
 			},
 			{
 				value: 'modal',
-				isActive: style === 'modal',
 				label: __( 'Button & Modal', 'jetpack' ),
 			},
 		];
